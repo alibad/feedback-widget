@@ -2,7 +2,9 @@
 
 I open-sourced a skill that teaches Claude Code or Codex to add a feedback widget to your app, with GitHub or Linear issue delivery. It's MIT-licensed, and you own the generated implementation.
 
-Source and setup: https://github.com/alibad/feedback-widget
+Website and setup: https://feedback.humanquest.net
+
+Source: https://github.com/alibad/feedback-widget
 
 Open Claude Code in your app's repository, then run:
 

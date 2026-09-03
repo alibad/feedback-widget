@@ -47,7 +47,8 @@ for (const file of actual) {
     const github = url.hostname === 'github.com' && /^\/alibad\/feedback-widget(?:\/|$)/.test(url.pathname);
     const linear = url.hostname === 'linear.app' && /^(?:\/developers\/|\/docs\/|\/example\/issue\/)/.test(url.pathname);
     const api = url.hostname === 'api.linear.app' && url.pathname === '/graphql';
-    if (!publicHosts.has(url.hostname) && !github && !linear && !api) fail(file, 'unreviewed URL host/path');
+    const website = url.protocol === 'https:' && url.hostname === 'feedback.humanquest.net' && url.pathname === '/' && !url.search;
+    if (!publicHosts.has(url.hostname) && !github && !linear && !api && !website) fail(file, 'unreviewed URL host/path');
     if (url.username || url.password) fail(file, 'credential-bearing URL');
   }
   if (file.endsWith('.md')) {

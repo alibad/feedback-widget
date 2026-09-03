@@ -4,6 +4,8 @@ Teach your coding assistant to build an in-app feedback flow that fits your app 
 
 Free and open source under the [MIT license](LICENSE). Start with the install commands below or download a [release ZIP](https://github.com/alibad/feedback-widget/releases/latest).
 
+Website and installation guide: **[feedback.humanquest.net](https://feedback.humanquest.net)**.
+
 This is an AI coding **skill**, not a hosted service or drop-in widget library. It contains implementation guidance, platform references, and a small tested server-side Linear adapter. Your assistant writes the widget into your app; you own its code and infrastructure.
 
 ## What it does
