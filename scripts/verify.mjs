@@ -33,7 +33,7 @@ const rules = [
   ['email address', /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/],
 ];
 const publicHosts = new Set(['docs.github.com', 'developer.mozilla.org', 'cheatsheetseries.owasp.org',
-  'code.claude.com', 'support.claude.com', 'example.com', 'www.w3.org']);
+  'code.claude.com', 'support.claude.com', 'example.com', 'www.w3.org', 'learn.chatgpt.com']);
 for (const file of actual) {
   if (/(?:^|\/)(?:\.env(?:\.|$)|\.github\/workflows\/)|\.(?:pem|key|log|zip)$/i.test(file)) {
     fail(file, 'sensitive or generated file is not permitted');

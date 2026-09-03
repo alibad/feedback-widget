@@ -2,7 +2,7 @@
 
 Treat the skill as reviewed instructions, not a guarantee that generated code is secure. Review authorization, destination visibility, validation, storage, redaction, idempotency, and recorder cleanup in each app.
 
-For a vulnerability, use GitHub's private vulnerability reporting if the repository offers it. Otherwise contact the maintainer through an existing private channel. Do not publish exploit details, tokens, customer records, or private workspace information in a public issue. No private reporting endpoint is claimed to be configured yet.
+For a vulnerability, use [GitHub's private vulnerability reporting](https://github.com/alibad/feedback-widget/security/advisories/new), which is enabled for this repository. Do not publish exploit details, tokens, customer records, or private workspace information in a public issue.
 
 Tests must use synthetic fixtures and mocked provider calls. Live issues, workspace installations, uploads, webhooks, and notifications require explicit authorization for the chosen target.
 

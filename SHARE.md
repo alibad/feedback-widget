@@ -1,6 +1,6 @@
 # Send this to a friend
 
-I open-sourced a skill that teaches Claude Code to add a feedback widget to your app, with GitHub or Linear issue delivery. It's MIT-licensed, and you own the generated implementation.
+I open-sourced a skill that teaches Claude Code or Codex to add a feedback widget to your app, with GitHub or Linear issue delivery. It's MIT-licensed, and you own the generated implementation.
 
 Source and setup: https://github.com/alibad/feedback-widget
 
@@ -24,3 +24,5 @@ Prefer GitHub? Replace “using Linear” with “using GitHub” and choose you
 You will need your own server-side tracker integration. Never paste keys into chat or put them in a mobile/browser bundle. Installing this skill does not connect an account or automatically collect feedback. It guides the assistant to build the feature into your app; review and test that implementation before deployment.
 
 For manual installation, get the standalone skill ZIP from [Releases](https://github.com/alibad/feedback-widget/releases/latest). The full README explains where to put it and how to enable it.
+
+Using Codex? Follow the [Codex install instructions](https://github.com/alibad/feedback-widget#codex), then invoke `$add-feedback-widget` in your app project.

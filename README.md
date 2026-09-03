@@ -61,6 +61,20 @@ Copy the **entire** `skills/add-feedback-widget` directory, including `reference
 
 For Claude's chat/Cowork skill upload, use a ZIP containing the `add-feedback-widget` folder, not the entire plugin repository. This skill is most useful in a coding environment with access to the app's files and test commands.
 
+## Codex
+
+Ask the built-in installer in Codex:
+
+```text
+$skill-installer Install the skill from https://github.com/alibad/feedback-widget/tree/main/skills/add-feedback-widget
+```
+
+The skill should be available on the next turn; restart Codex if it does not appear. Invoke `$add-feedback-widget` in your application project, followed by the same text-only Linear or GitHub request above.
+
+For manual installation, copy the entire standalone `add-feedback-widget` folder into `~/.agents/skills/` (personal) or your app's `.agents/skills/` (project). Preserve its references, assets, and tests. Check for an existing copy before installing; do not overwrite one blindly. See the [official skill installation and discovery documentation](https://learn.chatgpt.com/docs/build-skills).
+
+The repository includes a Codex plugin manifest, but the Claude marketplace commands above are **not** Codex commands, and this project is not claimed to be listed in the official Codex directory.
+
 ## Linear setup
 
 The assistant can add the integration, but you must provide your own authorized destination and server configuration:
