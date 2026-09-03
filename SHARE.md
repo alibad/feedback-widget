@@ -18,7 +18,7 @@ Choose User scope. Check `/plugin` → Installed and make sure **feedback-widget
 Then run:
 
 ```text
-/feedback-widget:add-feedback-widget Add a text-only feedback widget using Linear. Reuse my app's authentication and design system. Ask me to confirm the destination team. Keep screenshots, diagnostics, and notifications off. Do not create a live test issue.
+/feedback-widget:add-feedback-widget Add the full feedback experience using Linear. Reuse my app's authentication and design system. Include screenshots and annotation, element selection and pinpoint, screen recording, voice notes, and private attachments. Make diagnostics opt-in and let reporters review everything before sending. Configure private storage and server-only tracker credentials. Ask me to confirm the destination team and ask before creating a live test issue.
 ```
 
 Prefer GitHub? Replace “using Linear” with “using GitHub” and choose your own inbox repository.

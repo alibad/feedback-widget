@@ -10,7 +10,7 @@ This is an AI coding **skill**, not a hosted service or drop-in widget library. 
 
 ## What it does
 
-- Text-first reports: title, description, category, and sanitized page context.
+- Reports with title, description, category, and sanitized page context.
 - GitHub **or** Linear delivery through your authenticated backend.
 - Optional screenshots, annotations, voice notes, recordings, and attachments.
 - Platform guidance for Next.js/React, React Native/Expo, and Flutter.
@@ -32,10 +32,10 @@ Choose **User** scope for all your projects, or **Project** to share the depende
 Open the application repository you want to modify, then run:
 
 ```text
-/feedback-widget:add-feedback-widget Add a text-only feedback widget using Linear. Reuse this app's authentication. Do not add screenshots, diagnostics, or notifications. Ask me to confirm the destination team before wiring real delivery, and do not create a live test issue.
+/feedback-widget:add-feedback-widget Add the full feedback experience using Linear. Reuse this app's authentication and design system. Include screenshots and annotation, element selection and pinpoint, screen recording, voice notes, and private attachments. Make diagnostics opt-in and let reporters review everything before sending. Configure private storage and server-only tracker credentials. Ask me to confirm the destination team and ask before creating a live test issue.
 ```
 
-For GitHub, replace “using Linear” with “using GitHub” and confirm the intended repository. Add media later only if you want it and have private storage configured.
+For GitHub, replace “using Linear” with “using GitHub” and confirm the intended repository. Capture remains user-initiated, not automatic. If you only want a simpler form, explicitly ask for text-only mode.
 
 ### Enable, disable, update
 
@@ -71,7 +71,7 @@ Ask the built-in installer in Codex:
 $skill-installer Install the skill from https://github.com/alibad/feedback-widget/tree/main/skills/add-feedback-widget
 ```
 
-The skill should be available on the next turn; restart Codex if it does not appear. Invoke `$add-feedback-widget` in your application project, followed by the same text-only Linear or GitHub request above.
+The skill should be available on the next turn; restart Codex if it does not appear. Invoke `$add-feedback-widget` in your application project, followed by the same full-experience Linear or GitHub request above.
 
 For manual installation, copy the entire standalone `add-feedback-widget` folder into `~/.agents/skills/` (personal) or your app's `.agents/skills/` (project). Preserve its references, assets, and tests. Check for an existing copy before installing; do not overwrite one blindly. See the [official skill installation and discovery documentation](https://learn.chatgpt.com/docs/build-skills).
 
