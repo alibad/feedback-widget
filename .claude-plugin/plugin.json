@@ -1,0 +1,10 @@
+{
+  "name": "feedback-widget",
+  "version": "13.0.0",
+  "description": "Build privacy-conscious in-app feedback flows with GitHub or Linear issue delivery.",
+  "author": { "name": "alibad" },
+  "license": "MIT",
+  "homepage": "https://github.com/alibad/feedback-widget",
+  "repository": "https://github.com/alibad/feedback-widget",
+  "keywords": ["feedback", "bug-reporting", "github", "linear", "react", "flutter"]
+}

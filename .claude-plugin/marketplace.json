@@ -1,0 +1,12 @@
+{
+  "name": "feedback-widget",
+  "owner": { "name": "alibad" },
+  "metadata": { "description": "Privacy-conscious feedback widgets with GitHub or Linear delivery." },
+  "plugins": [
+    {
+      "name": "feedback-widget",
+      "source": "./",
+      "description": "Add an in-app feedback widget that creates GitHub or Linear issues."
+    }
+  ]
+}

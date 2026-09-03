@@ -1,0 +1,19 @@
+{
+  "name": "feedback-widget",
+  "version": "13.0.0",
+  "license": "MIT",
+  "description": "Build privacy-conscious feedback flows with GitHub or Linear issue delivery.",
+  "author": {
+    "name": "alibad"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Feedback Widget",
+    "shortDescription": "Add feedback with GitHub or Linear delivery.",
+    "longDescription": "A coding skill for text-first feedback, optional media, safe server-side delivery, and platform-aware implementation.",
+    "developerName": "alibad",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": ["Add a text-only feedback widget with Linear delivery.", "Add a feedback widget with GitHub delivery."]
+  }
+}
