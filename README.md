@@ -8,6 +8,14 @@ Website and installation guide: **[feedback.humanquest.net](https://feedback.hum
 
 This is an AI coding **skill**, not a hosted service or drop-in widget library. It contains implementation guidance, platform references, and a small tested server-side Linear adapter. Your assistant writes the widget into your app; you own its code and infrastructure.
 
+## Watch the demo
+
+[![Watch the 65-second Feedback Widget demo: select an element, annotate a screenshot, and review a report](https://feedback.humanquest.net/media/feedback-demo-poster.jpg?v=20260908)](https://feedback.humanquest.net/#demo)
+
+**[Play the video with narration, English captions, and a transcript →](https://feedback.humanquest.net/#demo)** · [Open the MP4](https://feedback.humanquest.net/media/feedback-demo.mp4?v=20260908)
+
+See the real experience built into the website: describe a problem, select an element, annotate a screenshot, and review what gets shared. Click the preview to watch on the website. The demo uses an example report and does not publish an issue.
+
 ## What it does
 
 - Reports with title, description, category, and sanitized page context.

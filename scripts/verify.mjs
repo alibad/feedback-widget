@@ -47,7 +47,13 @@ for (const file of actual) {
     const github = url.hostname === 'github.com' && /^\/alibad\/feedback-widget(?:\/|$)/.test(url.pathname);
     const linear = url.hostname === 'linear.app' && /^(?:\/developers\/|\/docs\/|\/example\/issue\/)/.test(url.pathname);
     const api = url.hostname === 'api.linear.app' && url.pathname === '/graphql';
-    const website = url.protocol === 'https:' && url.hostname === 'feedback.humanquest.net' && url.pathname === '/' && !url.search;
+    const publicDemoAsset = [
+      '/media/feedback-demo.mp4',
+      '/media/feedback-demo-poster.jpg',
+      '/media/feedback-demo.en.vtt',
+    ].includes(url.pathname) && (!url.search || /^\?v=\d{8}$/.test(url.search)) && !url.hash;
+    const website = url.protocol === 'https:' && url.hostname === 'feedback.humanquest.net' &&
+      ((url.pathname === '/' && !url.search) || publicDemoAsset);
     if (!publicHosts.has(url.hostname) && !github && !linear && !api && !website) fail(file, 'unreviewed URL host/path');
     if (url.username || url.password) fail(file, 'credential-bearing URL');
   }
