@@ -1,6 +1,6 @@
 {
   "name": "feedback-widget",
-  "version": "13.0.0",
+  "version": "13.1.0",
   "license": "MIT",
   "description": "Build privacy-conscious feedback flows with GitHub or Linear issue delivery.",
   "author": {

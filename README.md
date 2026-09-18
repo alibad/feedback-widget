@@ -110,14 +110,26 @@ The tests use synthetic data and mock every network request. They verify the inc
 
 No GitHub Actions workflows are included. Keep release checks local unless hosted automation is explicitly requested.
 
+## Publish a change to the skill
+
+The skill is authored where the assistant loads it from, and this repository is the publication target. `npm run sync` moves changes in one direction and will not let content land without the version moving:
+
+```sh
+npm run sync -- --check                 # is the published skill behind the working copy?
+npm run sync -- --bump minor            # pull the changes in and bump every manifest
+npm run verify
+```
+
+Use `patch` for wording, `minor` for new guidance or a changed default, and `major` when reversing something previously advised. Adding or removing a file is deliberately refused until `release-files.json` has been reconciled by hand.
+
 ## Safety and contributions
 
 Do not attach production screenshots, customer reports, private workspace links, tokens, or real webhook payloads to this repository. Use synthetic reproductions and review every contribution for provenance. See [SECURITY.md](SECURITY.md).
 
 ## Release packages
 
-- `add-feedback-widget-13.0.0.zip`: the standalone skill folder, including references, adapter, tests, and MIT license; suitable for manual installation or Claude skill upload.
-- `feedback-widget-plugin-13.0.0.zip`: the complete Claude/Codex plugin source package.
+- `add-feedback-widget-13.1.0.zip`: the standalone skill folder, including references, adapter, tests, and MIT license; suitable for manual installation or Claude skill upload.
+- `feedback-widget-plugin-13.1.0.zip`: the complete Claude/Codex plugin source package.
 - `SHA256SUMS.txt`: checksums for both archives.
 
 Run `npm run package` to verify and rebuild the archives locally. This requires Node 22+ and the `zip` command. Packaging uses the explicit file inventory, not the entire working directory.

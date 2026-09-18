@@ -1,14 +1,17 @@
 {
   "name": "feedback-widget-skill",
-  "version": "13.0.0",
+  "version": "13.1.0",
   "private": true,
   "license": "MIT",
   "type": "module",
   "description": "Local validation commands for the Feedback Widget skill; not an npm widget package.",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "test": "node --test skills/add-feedback-widget/tests/*.test.mjs",
+    "test": "node --test skills/add-feedback-widget/tests/*.test.mjs scripts/*.test.mjs",
     "verify": "node scripts/verify.mjs && npm test",
-    "package": "node scripts/package.mjs"
+    "package": "node scripts/package.mjs",
+    "sync": "node scripts/sync.mjs"
   }
 }

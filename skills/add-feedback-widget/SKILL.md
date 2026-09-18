@@ -3,7 +3,7 @@ name: add-feedback-widget
 description: Add or improve an in-app feedback and bug-reporting flow that files actionable GitHub or Linear issues. Use for feedback buttons, visual bug reports, screenshots or recordings, diagnostic context, mobile feedback flows, and issue-resolution notifications in Next.js/React, React Native/Expo, or Flutter apps.
 metadata:
   author: alibad
-  version: 13.0.0
+  version: 13.1.0
 ---
 
 # Add an In-App Feedback Widget
@@ -135,6 +135,7 @@ Reuse the project's existing server client. For GitHub, use a GitHub App install
 - `getUserMedia({audio:true})` requires `microphone`; camera permission is needed only for an actual camera feature.
 - Omitted `display-capture` and `microphone` directives already default to `self` in supporting browsers. Modify an existing restrictive policy only when a selected feature is blocked, and preserve every unrelated directive.
 - Request screen or microphone access only from a direct user gesture. Denial or lack of support leaves text feedback fully usable.
+- For a screen recording, capture the shared surface's audio (`getDisplayMedia({video:true, audio:true})`) and default the reporter's **microphone ON**, so they can narrate the bug. Disclose it in copy that is visible without opening a menu, keep a one-click off, and fall back to a silent recording if the mic is denied. Default it OFF only for regulated or minor-facing products.
 
 Read [permissions-policy.md](references/permissions-policy.md) before modifying headers.
 

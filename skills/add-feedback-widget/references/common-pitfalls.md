@@ -90,7 +90,7 @@ Quick reference of implementation pitfalls and safer approaches.
 | Screenshot/video capture on mobile | Skip entirely — Screen Capture API not supported on mobile |
 | Not handling "Stop sharing" browser button | Listen for `ended` event on video track |
 | Not revoking video/audio object URLs | Revoke in close(), reset(), removeVideo(), removeAudio(), and after submit |
-| Recording microphone audio by default | Start with microphone off; only call separate `getUserMedia` after an explicit choice, and preserve video-only recording on denial |
+| Recording the microphone with no disclosure or off switch | A narrated screen recording is far more useful than a silent one, so **default the microphone ON** — but say so in always-visible copy next to the record button, offer a one-click off in the recording options, request it with a separate `getUserMedia` call, and fall back to a silent video when the reporter denies it. What is unacceptable is capturing a voice the reporter did not know was being captured. Regulated or minor-facing products should still default it OFF |
 | Using `navigator.permissions.query` for mic | NEVER pre-check — just call `getUserMedia` directly. `permissions.query` returns stale state |
 | Accepting arbitrary attachment types | Allowlist only requested file types, verify size and signature server-side, and reject active content such as SVG/HTML by default |
 

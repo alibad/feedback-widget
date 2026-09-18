@@ -11,6 +11,8 @@
   "package.json",
   "release-files.json",
   "scripts/package.mjs",
+  "scripts/sync.mjs",
+  "scripts/sync.test.mjs",
   "scripts/verify.mjs",
   "skills/add-feedback-widget/SKILL.md",
   "skills/add-feedback-widget/assets/linear-provider.mjs",
