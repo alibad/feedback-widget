@@ -7,7 +7,10 @@ const fail = (file, reason) => { throw new Error(`${file}: ${reason}`); };
 const actual = [];
 function walk(directory) {
   for (const name of readdirSync(directory)) {
-    if (directory === root && ['.git', 'node_modules', 'dist'].includes(name)) continue;
+    // The website is a separately verified and deployed application. Keep it in
+    // the canonical repository without adding its build inputs or binary demo
+    // assets to the standalone plugin release inventory.
+    if (directory === root && ['.git', 'node_modules', 'dist', 'website'].includes(name)) continue;
     const path = resolve(directory, name);
     const file = relative(root, path).split(sep).join('/');
     const stat = lstatSync(path);
