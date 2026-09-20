@@ -11,6 +11,8 @@ import {
   LockKeyhole,
   MessageSquare,
   ShieldCheck,
+  Smartphone,
+  ExternalLink,
   Terminal,
   X,
 } from 'lucide-react';
@@ -21,6 +23,50 @@ import { FeedbackWidget } from '@/components/feedback-widget';
 const repo = 'https://github.com/alibad/feedback-widget';
 const install =
   '/plugin marketplace add alibad/feedback-widget\n/plugin install feedback-widget@feedback-widget';
+
+const mobileAppScreens = [
+  {
+    id: 'stack',
+    name: 'Stack Quest',
+    appUrl: 'https://stackquest.dev',
+    image: 'https://stackquest.dev/screens/05-exercise.png',
+    alt: 'Stack Quest coding exercise in the mobile app',
+    note: 'Flutter · daily coding practice',
+  },
+  {
+    id: 'doneos',
+    name: 'DoneOS',
+    appUrl: 'https://app.doneos.net',
+    image: 'https://doneos.net/screens/focus.png',
+    alt: 'DoneOS focus view in the mobile app',
+    note: 'Flutter · commitments and evidence',
+  },
+  {
+    id: 'leela',
+    name: 'Leela Quest',
+    appUrl: 'https://app.leela.quest',
+    image: 'https://www.leela.quest/images/game/game.png',
+    alt: 'Leela Quest game view in the mobile app',
+    note: 'Flutter · guided reflection',
+  },
+  {
+    id: 'yoga',
+    name: 'Yoga Quest',
+    appUrl: 'https://yogaquest.app',
+    image: 'https://yogaquest.app/shots/home.png',
+    alt: 'Yoga Quest class planning home screen in the mobile app',
+    note: 'Flutter · yoga sequencing',
+  },
+] as const;
+
+const mobileFleet = [
+  { name: 'Stack Quest', capabilities: ['Screenshot + annotation', 'Dictation', 'Voice', 'Recording'] },
+  { name: 'DoneOS', capabilities: ['Screenshot + annotation', 'Recording', 'Durable outbox'] },
+  { name: 'Leela Quest', capabilities: ['Screenshot + annotation', 'Dictation', 'Voice', 'Offline outbox'] },
+  { name: 'Cold Club', capabilities: ['Screenshot + annotation', 'Voice', 'Recording', 'Diagnostics'] },
+  { name: 'Yoga Quest', capabilities: ['Screenshot + annotation', 'Dictation', 'Voice', 'Recording'] },
+  { name: 'Scribe Quest', capabilities: ['Screenshot + annotation', 'Attachments', 'Categories'] },
+] as const;
 
 function CopyButton({ text, label }: { text: string; label: string }) {
   const [status, setStatus] = useState('');
@@ -63,6 +109,78 @@ function Brand() {
   );
 }
 
+function MobileShowcase() {
+  const [selectedId, setSelectedId] = useState<(typeof mobileAppScreens)[number]['id']>('stack');
+  const selected = mobileAppScreens.find((app) => app.id === selectedId) ?? mobileAppScreens[0];
+
+  return (
+    <section
+      id="mobile-apps"
+      className="mobile-showcase wrap section-space"
+      aria-labelledby="mobile-showcase-title"
+      data-feedback-label="Mobile app showcase"
+    >
+      <div className="section-heading mobile-heading">
+        <div>
+          <p className="eyebrow">THE SAME PATTERN, SHAPED FOR NATIVE APPS</p>
+          <h2 id="mobile-showcase-title">Not a responsive mockup.<br />A real Flutter app.</h2>
+        </div>
+        <p>
+          Switch between real product captures inside the phone. Each native app owns its UI,
+          storage, authentication, and tracker connection—the skill supplies the proven pattern.
+        </p>
+      </div>
+
+      <div className="mobile-stage">
+        <div className="mobile-app-picker" role="tablist" aria-label="Flutter mobile apps">
+          {mobileAppScreens.map((app) => (
+            <button
+              key={app.id}
+              type="button"
+              role="tab"
+              aria-selected={selected.id === app.id}
+              onClick={() => setSelectedId(app.id)}
+            >
+              <span>{app.name}</span>
+              <small>{app.note}</small>
+            </button>
+          ))}
+          <a href={selected.appUrl} target="_blank" rel="noreferrer">
+            Open {selected.name} <ExternalLink size={14} />
+          </a>
+          <p>
+            These are captures from the actual product UIs—not responsive marketing pages or redrawn mockups.
+          </p>
+        </div>
+
+        <div className="phone-demo-wrap">
+          <div className="phone-demo" aria-label={`${selected.name} mobile app in a phone frame`}>
+            <div className="phone-demo-speaker" aria-hidden="true" />
+            <img key={selected.id} src={selected.image} alt={selected.alt} />
+            <div className="phone-demo-home" aria-hidden="true" />
+          </div>
+          <p><Smartphone size={15} /> Actual Flutter product screen</p>
+        </div>
+      </div>
+
+      <div className="fleet-grid" aria-label="Feedback capabilities across six mobile apps">
+        {mobileFleet.map((app) => (
+          <article key={app.name}>
+            <h3>{app.name}</h3>
+            <ul>
+              {app.capabilities.map((capability) => <li key={capability}>{capability}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+      <p className="fleet-note">
+        Six shipped implementations, audited from source. The exact feature mix follows each product’s
+        risk, platform, and workflow; credentials stay server-side in every case.
+      </p>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -76,6 +194,7 @@ export default function Home() {
         <span className="version">v13</span>
         <nav aria-label="Main navigation">
           <a href="#how-it-works">How it works</a>
+          <a href="#mobile-apps">Mobile apps</a>
           <a href="#privacy">Privacy</a>
           <a href={repo}>
             GitHub <ArrowRight size={15} />
@@ -191,6 +310,8 @@ export default function Home() {
           <span>React Native / Expo</span>
           <span>Flutter</span>
         </div>
+
+        <MobileShowcase />
 
         <section
           id="demo"
