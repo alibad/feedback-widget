@@ -3,7 +3,7 @@ name: add-feedback-widget
 description: Add or improve an in-app feedback and bug-reporting flow that files actionable GitHub or Linear issues. Use for feedback buttons, visual bug reports, screenshots or recordings, diagnostic context, mobile feedback flows, and issue-resolution notifications in Next.js/React, React Native/Expo, or Flutter apps.
 metadata:
   author: alibad
-  version: 13.1.0
+  version: 13.2.0
 ---
 
 # Add an In-App Feedback Widget
@@ -15,6 +15,7 @@ Build a feedback flow that fits the host app, captures only the context the repo
 - The basic text-reporting path works without cloud storage or media permissions.
 - GitHub and Linear credentials stay server-side. Mobile and browser bundles never contain a token or private key.
 - Media, diagnostics, HTML, identity, and notification email are opt-in capabilities, not silent defaults.
+- Speech transcription is a text-entry aid, not an implicit voice attachment: preserve typed text, show interim words, disclose browser/vendor processing, and send only reviewed text unless the reporter separately adds a voice note.
 - Public or anonymous submission is treated as an abuse-sensitive API, not as an unprotected form endpoint.
 - The implementation reuses the app's auth, design system, storage, notification, localization, and observability patterns.
 - No live issue, label, webhook, secret, deployment, or hosted workflow is created without authorization for that external change.
@@ -93,6 +94,8 @@ Required state behavior:
 
 Build with the host design system and tokens. Support keyboard navigation, visible focus, Escape behavior, status announcements, 44px touch targets, reduced motion, and correct RTL positioning. Do not add a new UI framework merely for the widget.
 
+Use mature host primitives for form controls instead of leaving prominent feedback UI at browser-default quality. If the host uses shadcn/ui, or the user explicitly requests it, use source-owned shadcn components such as `Select`, `Dialog`, `Textarea`, and `Button` with the host tokens. In particular, use shadcn `Select` for category and area pickers rather than styling a raw `<select>` to imitate it. Preserve labels through `aria-labelledby`/`Label`, render popup content in the provided portal, keep the menu above the dialog overlay, and verify keyboard selection, focus return, checked indicators, long labels, and the one-column mobile layout. If shadcn is absent and was not requested, reuse the existing design system rather than importing a framework solely for this widget.
+
 For optional components, read the matching reference before implementation:
 
 - DOM selection: [element-select.md](references/element-select.md)
@@ -101,6 +104,7 @@ For optional components, read the matching reference before implementation:
 - pinpoint: [pinpoint-mode.md](references/pinpoint-mode.md)
 - video: [video-recording.md](references/video-recording.md)
 - voice: [voice-notes.md](references/voice-notes.md)
+- speech-to-text transcription: [speech-dictation.md](references/speech-dictation.md)
 - feature removal: [feature-toggles.md](references/feature-toggles.md)
 - settings and pre-submit disclosure: [settings-popover.md](references/settings-popover.md)
 - confirmations: [destructive-action-confirmations.md](references/destructive-action-confirmations.md)
@@ -108,7 +112,6 @@ For optional components, read the matching reference before implementation:
 
 Flutter-only optional shortcuts:
 
-- speech-to-text: [speech-dictation.md](references/speech-dictation.md)
 - screenshot signal: [screenshot-gesture-trigger.md](references/screenshot-gesture-trigger.md)
 
 The screenshot signal is an opt-in shortcut, not universal consent. It may react only after the feature has been enabled and disclosed; it uses the OS signal, never reads the system screenshot file, and asks before capturing the app's own view.
@@ -156,6 +159,7 @@ Run the repository's existing local checks. Add focused tests where the project 
 - cleanup of streams, timers, object URLs, temporary markers, and failed uploads;
 - duplicate-submit prevention and idempotency;
 - keyboard, focus, mobile sizing, RTL, and permission-denial fallbacks;
+- transcription prefix preservation, interim/final result handling, manual stop, unexpected end, unsupported-browser and denied-permission fallbacks, and separation from voice-note attachments;
 - private/public storage behavior chosen by the user.
 
 Do not create a live issue as an implicit test. Prefer a mocked provider client or dry-run adapter. Ask before a live end-to-end submission, label it clearly as a test, and report the created issue URL only to authorized reviewers.

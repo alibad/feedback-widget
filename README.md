@@ -20,7 +20,7 @@ See the real experience built into the website: describe a problem, select an el
 
 - Reports with title, description, category, and sanitized page context.
 - GitHub **or** Linear delivery through your authenticated backend.
-- Optional screenshots, annotations, voice notes, recordings, and attachments.
+- Optional screenshots, annotations, speech-to-text transcription, voice notes, recordings, and attachments.
 - Platform guidance for Next.js/React, React Native/Expo, and Flutter.
 - Explicit disclosure, private media by default, server-side credentials, and abuse controls.
 
@@ -40,7 +40,7 @@ Choose **User** scope for all your projects, or **Project** to share the depende
 Open the application repository you want to modify, then run:
 
 ```text
-/feedback-widget:add-feedback-widget Add the full feedback experience using Linear. Reuse this app's authentication and design system. Include screenshots and annotation, element selection and pinpoint, screen recording, voice notes, and private attachments. Make diagnostics opt-in and let reporters review everything before sending. Configure private storage and server-only tracker credentials. Ask me to confirm the destination team and ask before creating a live test issue.
+/feedback-widget:add-feedback-widget Add the full feedback experience using Linear. Reuse this app's authentication and design system. Include screenshots and annotation, element selection and pinpoint, speech-to-text transcription, screen recording, voice notes, and private attachments. Make diagnostics opt-in and let reporters review everything before sending. Configure private storage and server-only tracker credentials. Ask me to confirm the destination team and ask before creating a live test issue.
 ```
 
 For GitHub, replace “using Linear” with “using GitHub” and confirm the intended repository. Capture remains user-initiated, not automatic. If you only want a simpler form, explicitly ask for text-only mode.
@@ -128,8 +128,8 @@ Do not attach production screenshots, customer reports, private workspace links,
 
 ## Release packages
 
-- `add-feedback-widget-13.1.0.zip`: the standalone skill folder, including references, adapter, tests, and MIT license; suitable for manual installation or Claude skill upload.
-- `feedback-widget-plugin-13.1.0.zip`: the complete Claude/Codex plugin source package.
+- `add-feedback-widget-13.2.0.zip`: the standalone skill folder, including references, adapter, tests, and MIT license; suitable for manual installation or Claude skill upload.
+- `feedback-widget-plugin-13.2.0.zip`: the complete Claude/Codex plugin source package.
 - `SHA256SUMS.txt`: checksums for both archives.
 
 Run `npm run package` to verify and rebuild the archives locally. This requires Node 22+ and the `zip` command. Packaging uses the explicit file inventory, not the entire working directory.

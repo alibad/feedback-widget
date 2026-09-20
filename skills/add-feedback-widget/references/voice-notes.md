@@ -4,6 +4,12 @@
 
 Audio-only recording via `getUserMedia({ audio: true })`. Unlike video recording, this does NOT use `getDisplayMedia` — no screen capture involved, so it works on **both desktop and mobile**.
 
+This is an audio attachment, not speech-to-text. If the product also offers
+transcription, follow [speech-dictation.md](speech-dictation.md), label the
+actions separately (`Transcribe` versus `Voice note`), and allow only one
+microphone consumer at a time. Transcription should populate editable report
+text; a voice note should remain previewable and removable media.
+
 The dialog stays open during audio recording (no need to minimize since there's no screen capture).
 
 ## Recording flow
