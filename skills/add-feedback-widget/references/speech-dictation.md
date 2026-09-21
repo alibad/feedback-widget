@@ -25,6 +25,11 @@ attach recognition audio unless the reporter separately records a voice note.
 - Show a persistent listening state with a red dot, `Listening…` copy, and a
   one-click **Stop listening** action. Announce state and errors with
   `aria-live="polite"`.
+- Keep the active stop control visually compact. Preserve a 44px or larger tap
+  target, but render only a 14–16px stop square inside an approximately 30–32px
+  subtle active surface. Do not swap a mic for a precomposed `stop_circle`
+  glyph or inflate the entire field suffix: the recording state must not take
+  over the text box.
 - On a browser-initiated end after silence, keep the text and show **Resume
   transcription**. Do not silently discard the last partial result or loop
   endlessly trying to restart a denied service.
@@ -195,6 +200,10 @@ running result to that prefix. Move the cursor to the end after each update.
 
 Put the mic in or immediately beside the note field. Change the hint to
 `Listening…`, use a conventional red active state, and preserve manual typing.
+In Flutter, prefer `Icons.stop_rounded` at 14–16 logical pixels inside a
+separate 44px `IconButton` tap target. Avoid `Icons.stop_circle_rounded`: its
+built-in disc reads dramatically larger than the idle mic, especially inside a
+`TextField.suffixIcon`.
 
 Permissions:
 

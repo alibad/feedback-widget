@@ -3,7 +3,7 @@ name: add-feedback-widget
 description: Add or improve an in-app feedback and bug-reporting flow that files actionable GitHub or Linear issues. Use for feedback buttons, visual bug reports, screenshots or recordings, diagnostic context, mobile feedback flows, and issue-resolution notifications in Next.js/React, React Native/Expo, or Flutter apps.
 metadata:
   author: alibad
-  version: 13.2.0
+  version: 13.2.1
 ---
 
 # Add an In-App Feedback Widget

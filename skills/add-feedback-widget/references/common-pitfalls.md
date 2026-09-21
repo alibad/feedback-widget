@@ -101,6 +101,7 @@ Quick reference of implementation pitfalls and safer approaches.
 | Canvas annotator on mobile | Skip — add uploaded/pasted images directly |
 | Hover-dependent UI on mobile | Always-visible on touch devices |
 | Small touch targets | Min 44px (`min-h-11`) per Apple HIG |
+| Giant stop button during dictation | Separate hit area from visible glyph: keep a 44px+ target, use a 14–16px stop square inside a subtle 30–32px surface, and avoid precomposed `stop_circle` icons that visually consume the field |
 
 ## Flutter
 
