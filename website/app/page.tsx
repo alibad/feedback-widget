@@ -10,6 +10,7 @@ import {
   Play,
   LockKeyhole,
   MessageSquare,
+  RefreshCw,
   ShieldCheck,
   Smartphone,
   ExternalLink,
@@ -24,38 +25,41 @@ const repo = 'https://github.com/alibad/feedback-widget';
 const install =
   '/plugin marketplace add alibad/feedback-widget\n/plugin install feedback-widget@feedback-widget';
 
-const mobileAppScreens = [
+const mobileApps = [
   {
     id: 'stack',
     name: 'Stack Quest',
-    appUrl: 'https://stackquest.dev',
-    image: 'https://stackquest.dev/screens/05-exercise.png',
-    alt: 'Stack Quest coding exercise in the mobile app',
-    note: 'Flutter · daily coding practice',
+    appUrl: 'https://app.stackquest.dev/?feedback_demo=1',
+    note: 'Live Flutter app · interactive',
+    feedbackPath: 'Open Settings → Send feedback, or report a problem from an exercise.',
   },
   {
     id: 'doneos',
     name: 'DoneOS',
-    appUrl: 'https://app.doneos.net',
-    image: 'https://doneos.net/screens/focus.png',
-    alt: 'DoneOS focus view in the mobile app',
-    note: 'Flutter · commitments and evidence',
+    appUrl: 'https://app.doneos.net/?feedback_demo=1',
+    note: 'Live Flutter app · sign-in required',
+    feedbackPath: 'Sign in, then use the floating help button or Account → Send feedback.',
   },
   {
     id: 'leela',
     name: 'Leela Quest',
-    appUrl: 'https://app.leela.quest',
-    image: 'https://www.leela.quest/images/game/game.png',
-    alt: 'Leela Quest game view in the mobile app',
-    note: 'Flutter · guided reflection',
+    appUrl: 'https://app.leelaquest.com/?debug=true&feedback_demo=1#/home',
+    note: 'Live Flutter app · interactive',
+    feedbackPath: 'Open the app menu and choose Send feedback.',
   },
   {
     id: 'yoga',
     name: 'Yoga Quest',
-    appUrl: 'https://yogaquest.app',
-    image: 'https://yogaquest.app/shots/home.png',
-    alt: 'Yoga Quest class planning home screen in the mobile app',
-    note: 'Flutter · yoga sequencing',
+    appUrl: 'https://studio.yogaquest.app/?feedback_demo=1',
+    note: 'Live Flutter studio · interactive',
+    feedbackPath: 'Open Settings → Help and turn on the feedback button.',
+  },
+  {
+    id: 'scribe',
+    name: 'Scribe Quest',
+    appUrl: 'https://app.scribe-quest.com/?feedback_demo=1',
+    note: 'Live Flutter app · interactive',
+    feedbackPath: 'Use Account → Send feedback; tester builds also show the floating trigger.',
   },
 ] as const;
 
@@ -110,8 +114,17 @@ function Brand() {
 }
 
 function MobileShowcase() {
-  const [selectedId, setSelectedId] = useState<(typeof mobileAppScreens)[number]['id']>('stack');
-  const selected = mobileAppScreens.find((app) => app.id === selectedId) ?? mobileAppScreens[0];
+  const [selectedId, setSelectedId] = useState<(typeof mobileApps)[number]['id']>('stack');
+  const [frameKey, setFrameKey] = useState(0);
+  const selected = mobileApps.find((app) => app.id === selectedId) ?? mobileApps[0];
+
+  function selectApp(id: (typeof mobileApps)[number]['id']) {
+    setSelectedId(id);
+  }
+
+  function reloadFrame() {
+    setFrameKey((key) => key + 1);
+  }
 
   return (
     <section
@@ -122,44 +135,61 @@ function MobileShowcase() {
     >
       <div className="section-heading mobile-heading">
         <div>
-          <p className="eyebrow">THE SAME PATTERN, SHAPED FOR NATIVE APPS</p>
-          <h2 id="mobile-showcase-title">Not a responsive mockup.<br />A real Flutter app.</h2>
+          <p className="eyebrow">LIVE EMBEDS, NOT CAPTURES</p>
+          <h2 id="mobile-showcase-title">Tap the real product.<br />Open its real feedback.</h2>
         </div>
         <p>
-          Switch between real product captures inside the phone. Each native app owns its UI,
-          storage, authentication, and tracker connection—the skill supplies the proven pattern.
+          The phone is a live iframe, not a screenshot. Scroll it, sign in when needed, and use
+          each product&apos;s own feedback controls without leaving this page.
         </p>
       </div>
 
       <div className="mobile-stage">
         <div className="mobile-app-picker" role="tablist" aria-label="Flutter mobile apps">
-          {mobileAppScreens.map((app) => (
+          {mobileApps.map((app) => (
             <button
               key={app.id}
               type="button"
               role="tab"
               aria-selected={selected.id === app.id}
-              onClick={() => setSelectedId(app.id)}
+              aria-controls="mobile-app-frame"
+              onClick={() => selectApp(app.id)}
             >
               <span>{app.name}</span>
               <small>{app.note}</small>
             </button>
           ))}
+          <div className="mobile-feedback-path" aria-live="polite">
+            <strong>Find feedback</strong>
+            <span>{selected.feedbackPath}</span>
+          </div>
           <a href={selected.appUrl} target="_blank" rel="noreferrer">
-            Open {selected.name} <ExternalLink size={14} />
+            Open {selected.name} in a full tab <ExternalLink size={14} />
           </a>
           <p>
-            These are captures from the actual product UIs—not responsive marketing pages or redrawn mockups.
+            These are production URLs. Authentication and submitted feedback stay with the embedded product.
           </p>
         </div>
 
         <div className="phone-demo-wrap">
           <div className="phone-demo" aria-label={`${selected.name} mobile app in a phone frame`}>
-            <div className="phone-demo-speaker" aria-hidden="true" />
-            <img key={selected.id} src={selected.image} alt={selected.alt} />
+            <div className="phone-demo-toolbar">
+              <span><i aria-hidden="true" /> Live · {selected.name}</span>
+              <button type="button" onClick={reloadFrame} aria-label={`Reload embedded ${selected.name}`}>
+                <RefreshCw size={14} />
+              </button>
+            </div>
+            <iframe
+              id="mobile-app-frame"
+              key={`${selected.id}-${frameKey}`}
+              src={selected.appUrl}
+              title={`${selected.name} interactive production app`}
+              allow="camera; microphone; display-capture; clipboard-read; clipboard-write"
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
             <div className="phone-demo-home" aria-hidden="true" />
           </div>
-          <p><Smartphone size={15} /> Actual Flutter product screen</p>
+          <p><Smartphone size={15} /> Interactive production surface · clicks and scrolling enabled</p>
         </div>
       </div>
 
@@ -310,8 +340,6 @@ export default function Home() {
           <span>React Native / Expo</span>
           <span>Flutter</span>
         </div>
-
-        <MobileShowcase />
 
         <section
           id="demo"
@@ -575,6 +603,8 @@ export default function Home() {
             You choose what your app collects and where it goes.
           </p>
         </section>
+
+        <MobileShowcase />
 
         <section className="bottom-cta wrap">
           <div>

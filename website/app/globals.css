@@ -1827,7 +1827,7 @@ footer small {
   align-items: flex-start;
 }
 .mobile-stage {
-  min-height: 690px;
+  min-height: 760px;
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(330px, 1.2fr);
   align-items: center;
@@ -1888,6 +1888,22 @@ footer small {
   font-size: 13px;
   font-weight: 650;
 }
+.mobile-feedback-path {
+  display: grid;
+  gap: 4px;
+  margin-top: 8px;
+  border-left: 3px solid #2a6655;
+  padding: 4px 0 4px 12px;
+  color: #53685e;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.mobile-feedback-path strong {
+  color: #1f4d40;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 .mobile-app-picker > p {
   max-width: 330px;
   color: #6c7d73;
@@ -1910,24 +1926,53 @@ footer small {
   background: #fff;
   box-shadow: 0 34px 70px #19392e38, inset 0 0 0 1px #ffffff42;
 }
-.phone-demo-speaker {
+.phone-demo-toolbar {
   position: absolute;
-  top: 9px;
-  left: 50%;
-  z-index: 2;
-  width: 94px;
-  height: 25px;
-  transform: translateX(-50%);
-  border-radius: 999px;
+  inset: 0 0 auto;
+  z-index: 3;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 13px 0 15px;
   background: #14231f;
-  pointer-events: none;
+  color: #eef6ef;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
 }
-.phone-demo img {
+.phone-demo-toolbar span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.phone-demo-toolbar i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #7ddc9d;
+  box-shadow: 0 0 0 3px #7ddc9d22;
+}
+.phone-demo-toolbar button {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: inherit;
+  background: #ffffff12;
+  cursor: pointer;
+}
+.phone-demo-toolbar button:hover {
+  background: #ffffff24;
+}
+.phone-demo iframe {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 38px);
   display: block;
-  object-fit: cover;
-  object-position: top center;
+  margin-top: 38px;
+  border: 0;
   background: #fff;
 }
 .phone-demo-home {
@@ -2002,7 +2047,8 @@ footer small {
     padding: 12px;
   }
   .mobile-app-picker > a,
-  .mobile-app-picker > p {
+  .mobile-app-picker > p,
+  .mobile-feedback-path {
     grid-column: 1 / -1;
   }
 }
@@ -2014,7 +2060,8 @@ footer small {
     grid-template-columns: 1fr;
   }
   .mobile-app-picker > a,
-  .mobile-app-picker > p {
+  .mobile-app-picker > p,
+  .mobile-feedback-path {
     grid-column: auto;
   }
   .fleet-grid {
