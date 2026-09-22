@@ -126,7 +126,6 @@ for (const invalid of [
   { consent: false },
   { category: 'malicious' },
   { owner: 'another-repo' },
-  { title: 'x' },
   { description: 'x' },
   { description: 'x'.repeat(4001) },
   { title: 'x'.repeat(121) },
@@ -144,6 +143,41 @@ for (const invalid of [
     assert.equal(f.sent.length, 0);
     f.sqlite.close();
   });
+
+test('only the description is required; the title is derived when absent', async () => {
+  for (const [label, given] of [
+    ['absent', undefined],
+    ['empty', ''],
+    ['too short to be a summary', 'x'],
+  ] as const) {
+    const f = fixture();
+    const response = await handleFeedback(
+      request(payload(given === undefined ? { title: undefined } : { title: given })),
+      f.env,
+      f.deps,
+    );
+    assert.equal(response.status, 201, `title ${label} should be accepted`);
+    assert.equal(f.sent.length, 1);
+    // Derived from the report, not left blank or stamped with a placeholder.
+    assert.ok(
+      f.sent[0].title.length > '[feedback] '.length + 3,
+      `title ${label} should produce a real summary, got ${f.sent[0].title}`,
+    );
+    f.sqlite.close();
+  }
+});
+
+test('a title the reporter wrote is kept verbatim', async () => {
+  const f = fixture();
+  const response = await handleFeedback(
+    request(payload({ title: 'Export button does nothing' })),
+    f.env,
+    f.deps,
+  );
+  assert.equal(response.status, 201);
+  assert.ok(f.sent[0].title.includes('Export button does nothing'));
+  f.sqlite.close();
+});
 
 test('server secrets missing fail closed', async () => {
   const f = fixture();

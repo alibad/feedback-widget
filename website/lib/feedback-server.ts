@@ -207,7 +207,8 @@ export async function handleFeedback(
     const parsed = feedbackSchema.safeParse(raw);
     if (!parsed.success) return error(400, 'invalid_request');
     const normalized = normalizeFeedback(parsed.data);
-    if (normalized.title.length < 3 || normalized.description.length < 10)
+    // Only the description is required; the title is derived when absent.
+    if (normalized.description.length < 10)
       return error(400, 'invalid_request');
     const payloadHash = hash(JSON.stringify(normalized));
     const key = hash(

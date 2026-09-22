@@ -717,12 +717,8 @@ export function FeedbackWidget() {
       consent,
       idempotencyKey: key.current,
     });
-    if (
-      !result.success ||
-      report.title.length < 3 ||
-      report.description.length < 10
-    ) {
-      setError('Add a title, a description, and confirm the public report.');
+    if (!result.success || report.description.length < 10) {
+      setError('Add a description and confirm the public report.');
       return;
     }
     stopLogs.current?.();
@@ -1268,7 +1264,7 @@ export function FeedbackWidget() {
                     <DictationOptions voice={voice} container={dialog} />
                     <div className="feedback-field">
                       <label htmlFor="feedback-title">
-                        Summary <span>{title.length}/120</span>
+                        Summary <span>optional · {title.length}/120</span>
                       </label>
                       <div className="feedback-voice-field">
                         <Input
@@ -1277,12 +1273,10 @@ export function FeedbackWidget() {
                             voice.active && voice.state?.field === 'title'
                           }
                           id="feedback-title"
-                          required
-                          minLength={3}
                           maxLength={120}
                           value={title}
                           autoComplete="off"
-                          placeholder="What could work better?"
+                          placeholder="Leave blank and we'll take one from your report"
                           onChange={(e) => {
                             voice.edited('title');
                             setTitle(e.target.value);

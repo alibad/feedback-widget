@@ -9,7 +9,10 @@ export const feedbackCategories = {
 
 export const feedbackSchema = z
   .object({
-    title: z.string().trim().min(3).max(120),
+    // Optional by contract: the description carries the report, and a summary
+    // can be derived from it. Requiring both asks for the same thing twice,
+    // and that is where reports get abandoned.
+    title: z.string().trim().max(120).optional(),
     description: z.string().trim().min(10).max(4000),
     category: z.enum(['bug', 'feature', 'ui-ux', 'general']),
     consent: z.literal(true),
@@ -105,11 +108,34 @@ export function redactFeedback(value: string) {
     .trim();
 }
 
+/**
+ * The summary, or one made from the report when the reporter left it blank.
+ *
+ * A title can be derived from a description; a description cannot be derived
+ * from a title, which is why the requirement sits on the description and this
+ * exists. Takes the first sentence or line, whichever ends sooner, so the
+ * derived summary reads like a summary rather than a truncated paragraph.
+ */
+export function deriveTitle(title: string | undefined, description: string) {
+  const flatten = (value: string) =>
+    redactFeedback(value)
+      .replace(/[\r\n\t]+/g, ' ')
+      .trim();
+  const given = flatten(title ?? '');
+  if (given.length >= 3) return given.slice(0, 120);
+  const firstLine = redactFeedback(description).split(/\r?\n/, 1)[0] ?? '';
+  const sentence = firstLine.split(/(?<=[.!?])\s/, 1)[0] ?? firstLine;
+  const summary = flatten(sentence || firstLine);
+  if (summary.length <= 120) return summary;
+  // Cut on a word boundary so the issue list does not fill with half-words.
+  const cut = summary.slice(0, 120);
+  const space = cut.lastIndexOf(' ');
+  return `${(space > 60 ? cut.slice(0, space) : cut).trimEnd()}…`;
+}
+
 export function normalizeFeedback(input: FeedbackInput) {
   return {
-    title: redactFeedback(input.title)
-      .replace(/[\r\n\t]+/g, ' ')
-      .slice(0, 120),
+    title: deriveTitle(input.title, input.description),
     description: redactFeedback(input.description).slice(0, 4000),
     category: input.category,
     ...(input.captures?.length
