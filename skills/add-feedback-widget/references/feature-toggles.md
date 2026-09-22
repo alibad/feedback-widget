@@ -2,6 +2,8 @@
 
 Build from Core upward. Optional capability is disabled unless the request selects it and its dependencies are safe and configured.
 
+This governs a first install into an unknown host. A surface that is already a shipping product's own feedback widget is held to the higher, platform-specific floor in [platform-baselines.md](platform-baselines.md) instead — the full capture set on web, a deliberately smaller touch-shaped set on native mobile. The table below still describes how each capability is wired; the baseline decides which ones a product surface owes.
+
 ## Core
 
 Core includes:

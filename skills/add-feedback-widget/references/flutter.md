@@ -2,6 +2,8 @@
 
 The entry skill targets web by default; [react-native.md](react-native.md) covers React Native / Expo. Flutter has no DOM or browser Screen Capture API and must not hold GitHub/Linear credentials in the app bundle. Use this reference for Flutter UI/capture while keeping the entry skill's security, backend, storage, and verification rules. Select delivery through [issue-providers.md](issue-providers.md); [linear.md](linear.md) also applies to this server bridge.
 
+Read [platform-baselines.md](platform-baselines.md) first for the native mobile floor — screenshot, reporter-facing settings, a one-row touch annotator, and a single note box with an inline dictation mic — and [demo-mode.md](demo-mode.md) before wiring a `?feedback_demo=1` web build for a showcase.
+
 Flutter can capture app-rendered content in-process with `RepaintBoundary` and support a canvas annotator via `CustomPainter`. These are optional Media capabilities, not part of text-only Core. Capture requires a user action, a permitted non-sensitive screen, and preview/removal; absence of an OS permission prompt is not consent.
 
 ## When this applies — detect the platform first
@@ -14,8 +16,9 @@ Flutter if there's a `pubspec.yaml` with a `flutter:` SDK block, a `lib/main.dar
 |---|---|---|
 | DevTools element select (`elementFromPoint`) | ✗ none | No DOM. Drop element-select; capture the whole screen instead |
 | `getDisplayMedia` screenshot | `RepaintBoundary` + `RenderRepaintBoundary.toImage()` | In-process, no plugin, **no OS permission** — Flutter's superpower |
-| html2canvas / canvas annotator | `CustomPaint` + `CustomPainter` over the captured image — **KEEP IT** | RN skips the annotator; Flutter ships it |
-| `getUserMedia` + `MediaRecorder` voice | `record` / `just_audio` + `speech_to_text` (optional) | Not in the reference impl; add only if asked |
+| html2canvas / canvas annotator | `CustomPaint` + `CustomPainter` over the captured image — **KEEP IT** | Part of the mobile baseline; keep the toolbar to one row |
+| `getUserMedia` + `MediaRecorder` voice note | ✗ not in the mobile baseline | Web-only capability — see [voice-notes.md](voice-notes.md) |
+| inline dictation mic in the note field | app's speech engine, e.g. `speech_to_text` | **Required**, not optional — see [speech-dictation.md](speech-dictation.md) |
 | File drop zone | `file_picker` / `image_picker` (optional) | |
 | Page HTML snapshot | route name + device/app meta (optional enrichments) | No HTML; the reference only sends `platform` — see Diagnostics |
 | Server issue adapter → GitHub/Linear | **backend bridge** (app holds NO secrets) | See "Delivery" — same rule as RN |
@@ -246,10 +249,11 @@ The `RepaintBoundary` screenshot needs **no permission** (it's in-process). You 
 
 Dart-only widget tweaks can ship over-the-air with **Shorebird** (`shorebird patch`) instead of a new TestFlight/Play build — but only if the installed build was compiled with the Shorebird engine. Changes that touch native code or add a plugin always require a new store build. (Flutter analog of the RN `eas update` rule.)
 
-Optional Flutter extensions:
+Also read:
 
-- [speech-dictation.md](speech-dictation.md) for disclosed speech-to-text;
-- [screenshot-gesture-trigger.md](screenshot-gesture-trigger.md) for an opt-in, signal-only screenshot shortcut.
+- [speech-dictation.md](speech-dictation.md) — the note field's inline mic, which is part of the baseline rather than an extension;
+- [demo-mode.md](demo-mode.md) — `?feedback_demo=1` on a Flutter **web** build: force the trigger visible, open nothing;
+- [screenshot-gesture-trigger.md](screenshot-gesture-trigger.md) — an opt-in, signal-only screenshot shortcut.
 
 ## What NOT to do (Flutter)
 
@@ -262,3 +266,6 @@ Optional Flutter extensions:
 - Don't rely on App Check, a debug flag, or a hidden trigger as endpoint authorization.
 - Don't reach for DOM/web APIs (`getDisplayMedia`, `elementFromPoint`, `html2canvas`) — they don't exist in Flutter.
 - Don't capture at `pixelRatio: 1.0` on HiDPI screens — use `devicePixelRatio` (capture) and a fixed `2.0` (export).
+- Don't auto-open the composer in a demo build — `?feedback_demo=1` reveals the trigger and nothing else. Delete the post-frame retry loop with it.
+- Don't add a voice-note recorder to the composer — the note field's dictation mic is the microphone feature on mobile.
+- Don't let the annotator toolbar wrap onto a second row over the screenshot — drop tools instead.

@@ -3,7 +3,7 @@ name: add-feedback-widget
 description: Add or improve an in-app feedback and bug-reporting flow that files actionable GitHub or Linear issues. Use for feedback buttons, visual bug reports, screenshots or recordings, diagnostic context, mobile feedback flows, and issue-resolution notifications in Next.js/React, React Native/Expo, or Flutter apps.
 metadata:
   author: alibad
-  version: 13.2.1
+  version: 14.0.0
 ---
 
 # Add an In-App Feedback Widget
@@ -16,6 +16,9 @@ Build a feedback flow that fits the host app, captures only the context the repo
 - GitHub and Linear credentials stay server-side. Mobile and browser bundles never contain a token or private key.
 - Media, diagnostics, HTML, identity, and notification email are opt-in capabilities, not silent defaults.
 - Speech transcription is a text-entry aid, not an implicit voice attachment: preserve typed text, show interim words, disclose browser/vendor processing, and send only reviewed text unless the reporter separately adds a voice note.
+- A composer never requires two text boxes. When it offers both a summary and a description, exactly one of them is required, and the markup, the helper copy, and the server agree on which.
+- Every text box in a composer carries a small inline dictation mic, on web and on native mobile alike. It fills the field; it never attaches audio.
+- A web build in demo mode shows the feedback trigger unconditionally and opens no composer by itself.
 - Public or anonymous submission is treated as an abuse-sensitive API, not as an unprotected form endpoint.
 - The implementation reuses the app's auth, design system, storage, notification, localization, and observability patterns.
 - No live issue, label, webhook, secret, deployment, or hosted workflow is created without authorization for that external change.
@@ -78,6 +81,12 @@ Add only when debugging context is valuable and the app owner accepts the privac
 
 Add only when requested and when the app has a notification provider plus a safe server-side mapping from provider and issue ID to recipient. Never put an email address in a tracker issue body or HTML comment. Read [issue-closed-notify.md](references/issue-closed-notify.md).
 
+### Shipping product surfaces
+
+Core is the floor for a bare install, a setup-blocked host, or an explicit text-only request. A surface that is a shipping product's own feedback widget has a higher floor, and it differs by platform: web gets the full capture set, native mobile gets a deliberately smaller touch-shaped set. Read [platform-baselines.md](references/platform-baselines.md) and implement the matching baseline in full, or name the items left out and why.
+
+That reference also carries the two composer rules that hold on every platform: only one text box is ever required, and every text box carries an inline dictation mic.
+
 Do not force a feature-selection interview when the user already specified the scope. When the request is ambiguous, implement Core and report which optional capabilities remain available.
 
 ## 4. Implement the shared model and UI
@@ -109,6 +118,8 @@ For optional components, read the matching reference before implementation:
 - settings and pre-submit disclosure: [settings-popover.md](references/settings-popover.md)
 - confirmations: [destructive-action-confirmations.md](references/destructive-action-confirmations.md)
 - responsive web UI: [mobile-experience.md](references/mobile-experience.md)
+- platform capability baselines, required fields, and mic placement: [platform-baselines.md](references/platform-baselines.md)
+- showcase/demo builds: [demo-mode.md](references/demo-mode.md)
 
 Flutter-only optional shortcuts:
 

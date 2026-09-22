@@ -20,8 +20,8 @@ Use the project's schema library. Keep Core small and make optional fields expli
 
 ```typescript
 type FeedbackRequest = {
-  title: string;
-  description: string;
+  title?: string;      // optional — see "One required text box"
+  description: string; // the required field
   category: 'bug' | 'feature' | 'ui-ux' | 'general';
   page: { name?: string; path: string };
   source?: 'web' | 'app';
@@ -43,6 +43,10 @@ type FeedbackRequest = {
 Choose either validated data URIs for small server uploads or attachment IDs for authorized direct uploads. Avoid supporting both unless the platforms genuinely require it. Never accept an arbitrary media URL from the client. Native clients that already uploaded an object send an opaque attachment ID that the server verifies against the configured storage origin, prefix, owner/tenant, size, and state.
 
 Reject unknown categories, sources, attachment fields, and excessive counts/lengths. See the suggested limits in [security-and-privacy.md](security-and-privacy.md).
+
+### One required text box
+
+`description` is the only required text field. Validate that it is present, non-empty after trimming, and within bounds. Accept an absent or empty `title` and derive a bounded one-line title from `description` using a server template. Do not return `invalid_request` for a missing optional summary, and do not enforce a rule the client's own form does not show. See [platform-baselines.md](platform-baselines.md).
 
 ## Processing order
 

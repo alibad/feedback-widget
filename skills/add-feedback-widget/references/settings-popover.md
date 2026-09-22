@@ -2,6 +2,8 @@
 
 Use a compact settings panel only for capabilities actually configured. Do not show inert notification or diagnostic controls.
 
+**Scope: the web widget's per-submission disclosure panel.** A native mobile app also owes the reporter a place to change how the widget *behaves* — whether the floating trigger shows at all, whether a screenshot opens it, whether a screenshot is attached. Those are persisted app settings, not per-report payload toggles; see the native mobile baseline in [platform-baselines.md](platform-baselines.md).
+
 ## Recommended structure
 
 - **Report contents:** removable chips/rows for screenshot, recording, attachment, and each diagnostic class.

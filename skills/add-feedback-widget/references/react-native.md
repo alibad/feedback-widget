@@ -2,6 +2,8 @@
 
 The entry skill targets web by default. React Native has no DOM or browser Screen Capture API, and GitHub/Linear credentials must never enter the app bundle. Use this reference for native UI/capture while keeping the entry skill's security, backend, storage, and verification rules. Select the destination through [issue-providers.md](issue-providers.md); [linear.md](linear.md) applies equally to the native server bridge.
 
+Read [platform-baselines.md](platform-baselines.md) first for the native mobile floor. It applies to React Native as much as to Flutter: screenshot, reporter-facing settings, a one-row touch annotator, and a single note box with an inline dictation mic.
+
 ## When this applies — detect the platform first
 
 React Native / Expo if `package.json` has `react-native` and/or `expo`, there's an `app.json` / `app.config.js`, and there is **no** Next.js / `app/` web router. In a mixed monorepo, build each platform separately; they can share the server contract and configured tracker inbox.
@@ -12,8 +14,9 @@ React Native / Expo if `package.json` has `react-native` and/or `expo`, there's 
 |---|---|---|
 | DevTools element select (`elementFromPoint`) | ✗ none | No DOM. Drop element-select entirely |
 | `getDisplayMedia` screenshot | `react-native-view-shot` (capture a ref) and/or `expo-image-picker` | No Screen Capture API on RN |
-| html2canvas / canvas annotator | ✗ skip | Use the OS screenshot + photo upload instead |
-| `getUserMedia` + `MediaRecorder` voice | `expo-av` (record) + `expo-speech-recognition` (on-device transcribe) | |
+| html2canvas / canvas annotator | `react-native-skia` or an SVG overlay above the captured image | The baseline expects a touch annotator. Skipping it is a stated gap, not a default |
+| `getUserMedia` + `MediaRecorder` voice note | ✗ not in the mobile baseline | Web-only — see [voice-notes.md](voice-notes.md) |
+| inline dictation mic in the note field | `expo-speech-recognition` or the app's engine | **Required** — see [speech-dictation.md](speech-dictation.md) |
 | File drop zone | `expo-document-picker` | |
 | Page HTML snapshot | recent in-app **logs** + route + device/app meta | No HTML; capture JS console buffer instead |
 | Server issue adapter → GitHub/Linear | **backend bridge** (app holds NO secrets) | See "Delivery" below |

@@ -6,6 +6,8 @@ Create `ScreenshotAnnotator.tsx` alongside the feedback widget. This is a full-s
 
 **Tools**: Select & Move, Freehand Draw, Line, Rectangle, Circle, Arrow, Text
 
+This is the desktop-web editor. A touch annotator — a phone browser, or a React Native / Flutter app — has a tighter constraint: the screenshot is nearly the whole viewport, so the toolbar is one row on one edge and variants fold into a single control rather than a button each. Read the annotation rules in [platform-baselines.md](platform-baselines.md) before building one, and drop tools rather than wrapping the toolbar over the image.
+
 ## Text Tool — NEVER use `prompt()` or `window.prompt()`
 
 When the user clicks with the text tool, render an `<input>` element positioned directly on top of the canvas at the click coordinates. The input should be styled to match the current color and font size (`strokeWidth * 6`). On Enter, commit the text as an annotation. On Escape, cancel.

@@ -2,6 +2,23 @@
 
 Quick reference of implementation pitfalls and safer approaches.
 
+## Baselines, Composer Fields & Demo Mode
+
+| Mistake | Correct approach |
+|---|---|
+| Marking both Summary and Description `required` | Require only the description/note. Leave the summary optional and derive it server-side. Two required boxes ask for the same thing twice — see [platform-baselines.md](platform-baselines.md) |
+| Helper copy says "your note is required" while the markup requires two fields | One rule, stated once, enforced in the field attributes, the helper text, the review step, and the server |
+| A dictation mic on the description but not the summary | Every text box gets its own mic, bound to its own field |
+| A mic that swells into a large `stop_circle` while listening | 14–16px glyph inside a ~30–32px surface, 44px tap target, both states the same size |
+| Adding a voice-note recorder to a React Native or Flutter composer | Voice notes are web-only. The inline dictation mic is the microphone feature on native mobile |
+| Treating "smallest feature set" as the floor for a shipping product surface | Core is the floor for a bare install. A product's own widget owes its platform baseline |
+| A web widget with screenshot but no clipboard paste, or paste that attaches without opening the annotator | Paste and annotate are one path: a pasted image lands in `captures[]` and opens the annotator |
+| A native annotator toolbar that wraps to a second row over the screenshot | One row, one edge, variants folded into one control. Drop tools before wrapping |
+| A native widget with no way for the reporter to hide the floating trigger | Persisted settings for trigger visibility, open-on-screenshot, and include-screenshot. Hiding the trigger must leave the other routes working |
+| `?feedback_demo=1` auto-opening the composer | Demo mode forces the trigger visible and opens nothing. Remove the post-frame retry loop with the auto-open — see [demo-mode.md](demo-mode.md) |
+| Demo mode respecting the remote-config flag or the persisted "hidden" default | It overrides every visibility gate, and only visibility. It grants no entitlement and relaxes no server check |
+| Demo mode reachable on a native build | Gate the parameter check on the web-platform constant |
+
 ## Screenshots & Capture
 
 | Mistake | Correct approach |

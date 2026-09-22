@@ -2,7 +2,9 @@
 
 ## Overview
 
-Audio-only recording via `getUserMedia({ audio: true })`. Unlike video recording, this does NOT use `getDisplayMedia` — no screen capture involved, so it works on **both desktop and mobile**.
+Audio-only recording via `getUserMedia({ audio: true })`. Unlike video recording, this does NOT use `getDisplayMedia` — no screen capture involved, so it works on **desktop and mobile browsers alike**.
+
+**Web only.** A voice note is part of the web baseline and is deliberately absent from the native mobile baseline: on a phone the inline dictation mic already covers "I would rather talk than type", and it yields reviewable text instead of an audio file somebody has to sit through. Do not add an audio recorder to a React Native or Flutter feedback composer. See [platform-baselines.md](platform-baselines.md).
 
 This is an audio attachment, not speech-to-text. If the product also offers
 transcription, follow [speech-dictation.md](speech-dictation.md), label the

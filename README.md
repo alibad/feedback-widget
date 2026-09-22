@@ -128,8 +128,8 @@ Do not attach production screenshots, customer reports, private workspace links,
 
 ## Release packages
 
-- `add-feedback-widget-13.2.1.zip`: the standalone skill folder, including references, adapter, tests, and MIT license; suitable for manual installation or Claude skill upload.
-- `feedback-widget-plugin-13.2.1.zip`: the complete Claude/Codex plugin source package.
+- `add-feedback-widget-14.0.0.zip`: the standalone skill folder, including references, adapter, tests, and MIT license; suitable for manual installation or Claude skill upload.
+- `feedback-widget-plugin-14.0.0.zip`: the complete Claude/Codex plugin source package.
 - `SHA256SUMS.txt`: checksums for both archives.
 
 Run `npm run package` to verify and rebuild the archives locally. This requires Node 22+ and the `zip` command. Packaging uses the explicit file inventory, not the entire working directory.

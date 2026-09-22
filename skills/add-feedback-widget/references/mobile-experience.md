@@ -1,5 +1,7 @@
 # Mobile Experience
 
+**Scope: the web widget on a small screen.** This is responsive web layout for a browser on a phone. It does not govern a React Native or Flutter app — for those read [platform-baselines.md](platform-baselines.md), then [react-native.md](react-native.md) or [flutter.md](flutter.md). The two have different floors on purpose, and the voice-note row below is a web row.
+
 Use `(pointer: coarse)` to choose touch-friendly interaction, and viewport/safe-area checks for layout. It is not a security boundary or a complete mobile detector. Feature-detect media APIs separately.
 
 ## Mobile Detection

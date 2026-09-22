@@ -6,9 +6,18 @@ audio file and uploads it. A polished widget may offer both, but label them as
 different actions: **Transcribe** fills the text box; **Voice note** attaches
 audio.
 
-Enable transcription only when requested. Recognition may use a browser, OS,
-or vendor speech service, so disclose that before listening. Do not retain or
-attach recognition audio unless the reporter separately records a voice note.
+Recognition may use a browser, OS, or vendor speech service, so disclose that
+before listening. Do not retain or attach recognition audio unless the reporter
+separately records a voice note.
+
+**Every text box in a feedback composer gets one of these mics** — web and
+native mobile, summary and description and note alike, each bound to its own
+field. It is part of both platform baselines rather than a capability to be
+requested; see [platform-baselines.md](platform-baselines.md) for placement and
+sizing. On native mobile it is the *only* microphone feature: there is no voice
+note there, so dictation is how somebody talks instead of typing. Where the host
+has no speech engine at all, say so and leave the field mic-less rather than
+shipping a dead control.
 
 ## Experience contract
 
