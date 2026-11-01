@@ -2118,3 +2118,5 @@ footer small {
 .demo-transcript p + p {
   margin-top: 12px;
 }
+
+footer > div { flex-wrap: wrap; }

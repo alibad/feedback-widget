@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: '/' },
   icons: { icon: '/favicon.svg' },
+  manifest: '/manifest.webmanifest',
   openGraph: {
     type: 'website',
     url: origin,
@@ -50,6 +51,7 @@ export default function RootLayout({
           geistSans.variable + ' ' + geistMono.variable + ' antialiased'
         }
       >
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({"@context":"https://schema.org","@type":"SoftwareApplication",name:"Feedback Widget",url:origin,description,applicationCategory:"DeveloperApplication",operatingSystem:"Web",codeRepository:"https://github.com/alibad/feedback-widget",license:"https://github.com/alibad/feedback-widget/blob/main/LICENSE",publisher:{"@type":"Organization",name:"Human Quest",url:"https://www.humanquest.net/"}}).replace(/</g, '\\u003c') }} />
         {children}
       </body>
     </html>

@@ -621,8 +621,9 @@ export default function Home() {
       </main>
       <footer className="wrap">
         <Brand />
-        <p>Built to be yours. MIT licensed.</p>
+        <p>A <a href="https://www.humanquest.net/">Human Quest</a> project. MIT licensed.</p>
         <div>
+          <a href="https://www.humanquest.net/ai-patterns">Explore AI Patterns</a>
           <a href={repo}>Source</a>
           <a href={repo + '/blob/main/LICENSE'}>License</a>
           <a href={repo + '/blob/main/SECURITY.md'}>Security</a>
