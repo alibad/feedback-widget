@@ -1,0 +1,239 @@
+/* Human Quest · The Path: the family look for every product site (kit v1.1, 7 Nov 2026).
+   Colours come from the Human Quest logo: a sunrise over hills. Every class and token is prefixed
+   hqp- so it never collides with a site's own styles (Tailwind or otherwise). */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+  --hqp-paper: #f6efe3;
+  --hqp-paper-2: #efe4d1;
+  --hqp-sand: #e6d5b8;
+  --hqp-line: #dccbb0;
+  --hqp-ink: #24170f;
+  --hqp-ink-2: #6a5848;
+  --hqp-ink-3: #9a8773;
+  --hqp-sun: #f3a43e;
+  --hqp-ember: var(--hqp-brand, #e05a28);
+  --hqp-night: #1c130e;
+  --hqp-night-2: #2a1d15;
+  --hqp-night-line: #3d2c20;
+  --hqp-card: #fffaf1;
+  --hqp-road: #fffaf1;
+  --hqp-sun-core: #ef8a3e;
+  --hqp-sun-halo: #f6c98d;
+
+  /* One colour per territory: soft for land, deep for text on it. */
+  --hqp-practice: #8aa47a;  --hqp-practice-deep: #3b5a2f;
+  --hqp-learning: #7ba0b8;  --hqp-learning-deep: #284d66;
+  --hqp-planning: #dcae52;  --hqp-planning-deep: #75500f;
+  --hqp-growth: #cf8573;    --hqp-growth-deep: #7a3122;
+  --hqp-tools: #9787bb;     --hqp-tools-deep: #44376e;
+  /* AI patterns (Feedback, Openstage, Walkthroughs, Narrate, Console, MCP) live "at night". */
+  --hqp-pattern: #e0a35c;   --hqp-pattern-deep: #8a4a14;
+
+  /* The site's own colour: its brand colours if it sets them (end of this file), else its
+     territory (data-hqp-t on <html> or any wrapper), else the sun. */
+  --hqp-own: var(--hqp-brand-soft);
+  --hqp-own-deep: var(--hqp-brand-deep);
+  --hqp-tt: var(--hqp-sun);
+  --hqp-ttd: #8a4a14;
+  --hqp-t: var(--hqp-own, var(--hqp-tt));
+  --hqp-td: var(--hqp-own-deep, var(--hqp-ttd));
+
+  --hqp-display: "Fraunces", Georgia, serif;
+  --hqp-text: "Instrument Sans", system-ui, sans-serif;
+  --hqp-mono: "JetBrains Mono", ui-monospace, monospace;
+  --hqp-gutter: clamp(16px, 4vw, 56px);
+  --hqp-max: 1280px;
+}
+
+/* Night: the same map after sunset. Works with data-theme="night" (kit toggle) or a site's .dark class. */
+:root[data-theme="night"], html.dark {
+  --hqp-paper: #1c130e;
+  --hqp-paper-2: #241911;
+  --hqp-sand: #2a1d15;
+  --hqp-line: #3d2c20;
+  --hqp-ink: #f3e8d8;
+  --hqp-ink-2: #c4b29c;
+  --hqp-ink-3: #927e69;
+  --hqp-card: #2a1d15;
+  --hqp-road: #e9d9bf;
+  --hqp-sun-core: #efe3cc;
+  --hqp-sun-halo: #f3e8d8;
+  --hqp-practice: #4d6343;  --hqp-practice-deep: #bcd4aa;
+  --hqp-learning: #43607a;  --hqp-learning-deep: #acc9dd;
+  --hqp-planning: #86672a;  --hqp-planning-deep: #f1d18a;
+  --hqp-growth: #82503f;    --hqp-growth-deep: #f1b6a5;
+  --hqp-tools: #554a77;     --hqp-tools-deep: #c9bbe8;
+  --hqp-pattern: #8a5a24;   --hqp-pattern-deep: #f3c98e;
+  --hqp-ember: var(--hqp-brand-night, var(--hqp-brand, #e05a28));
+  --hqp-own: color-mix(in srgb, var(--hqp-brand-soft) 50%, #1c130e);
+  --hqp-own-deep: color-mix(in srgb, var(--hqp-brand-soft) 45%, #f3e8d8);
+}
+
+[data-hqp-t="practice"] { --hqp-tt: var(--hqp-practice); --hqp-ttd: var(--hqp-practice-deep); }
+[data-hqp-t="learning"] { --hqp-tt: var(--hqp-learning); --hqp-ttd: var(--hqp-learning-deep); }
+[data-hqp-t="planning"] { --hqp-tt: var(--hqp-planning); --hqp-ttd: var(--hqp-planning-deep); }
+[data-hqp-t="growth"]   { --hqp-tt: var(--hqp-growth);   --hqp-ttd: var(--hqp-growth-deep); }
+[data-hqp-t="tools"]    { --hqp-tt: var(--hqp-tools);    --hqp-ttd: var(--hqp-tools-deep); }
+[data-hqp-t="pattern"]  { --hqp-tt: var(--hqp-pattern);  --hqp-ttd: var(--hqp-pattern-deep); }
+/* A site's own colours win over its territory, except on the family marks: the Human Quest chip
+   in the questbar and the footer's list of territories. */
+[data-hqp-t] { --hqp-t: var(--hqp-own, var(--hqp-tt)); --hqp-td: var(--hqp-own-deep, var(--hqp-ttd)); }
+.hqp-family, .hqp-foot [data-hqp-t] { --hqp-t: var(--hqp-tt); --hqp-td: var(--hqp-ttd); }
+
+/* ---------- Page base (opt in with class hqp-page on <body> or a wrapper) ---------- */
+.hqp-page { background: var(--hqp-paper); color: var(--hqp-ink); font: 17px/1.55 var(--hqp-text); -webkit-font-smoothing: antialiased; transition: background .6s ease, color .6s ease; }
+.hqp-page a { color: inherit; }
+.hqp-wrap { max-width: var(--hqp-max); margin: 0 auto; padding: 0 var(--hqp-gutter); }
+.hqp-section { padding: clamp(64px, 9vw, 112px) var(--hqp-gutter); }
+.hqp-section > .hqp-inner { max-width: var(--hqp-max); margin: 0 auto; }
+.hqp-tint { background: var(--hqp-paper-2); }
+.hqp-nightband { background: var(--hqp-night); color: #f1e6d6; }
+.hqp-nightband .hqp-eyebrow { color: #a8937d; }
+.hqp-nightband .hqp-display { color: #f6efe3; }
+.hqp-nightband .hqp-lede { color: #bfae99; }
+
+.hqp-eyebrow { font: 500 12px/1.2 var(--hqp-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--hqp-ink-3); margin: 0 0 14px; }
+.hqp-display { font-family: var(--hqp-display); font-weight: 400; letter-spacing: -0.025em; line-height: .98; font-variation-settings: "opsz" 144, "SOFT" 50; margin: 0; color: var(--hqp-ink); }
+.hqp-display em { font-style: italic; color: var(--hqp-ember); font-weight: 300; }
+h1.hqp-display { font-size: clamp(46px, 6.4vw, 100px); }
+h2.hqp-display { font-size: clamp(36px, 4.6vw, 68px); }
+h3.hqp-display { font-size: clamp(26px, 2.6vw, 36px); line-height: 1.05; }
+.hqp-lede { font-size: 20px; line-height: 1.5; color: var(--hqp-ink-2); max-width: 34ch; margin: 22px 0 30px; text-wrap: balance; }
+.hqp-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
+.hqp-head .hqp-lede { margin: 0; }
+
+.hqp-btn { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 999px; font: 600 15px/1 var(--hqp-text); text-decoration: none; border: 1.5px solid var(--hqp-ink); cursor: pointer; transition: transform .15s ease, background .15s ease, box-shadow .15s ease; }
+.hqp-btn:hover { transform: translateY(-1px); }
+.hqp-btn:active { transform: translateY(1px); }
+.hqp-btn-solid { background: var(--hqp-ink); color: var(--hqp-paper) !important; }
+.hqp-btn-ember { background: var(--hqp-ember); border-color: var(--hqp-ember); color: #fff !important; }
+.hqp-btn-ghost { background: transparent; color: var(--hqp-ink) !important; }
+.hqp-btn-light { background: var(--hqp-paper); border-color: var(--hqp-paper); color: var(--hqp-ink) !important; }
+.hqp-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.hqp-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--hqp-t); }
+
+/* ---------- The questbar: the same top bar on every Human Quest site ---------- */
+.hqp-questbar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 18px; padding: 12px var(--hqp-gutter); background: color-mix(in srgb, var(--hqp-paper) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--hqp-line); color: var(--hqp-ink); font-family: var(--hqp-text); }
+.hqp-questbar a { color: inherit; }
+.hqp-mark { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 600 17px/1 var(--hqp-text); letter-spacing: -0.01em; white-space: nowrap; }
+.hqp-mark img { width: 34px; height: 34px; border-radius: 9px; object-fit: contain; }
+:root[data-theme="night"] .hqp-mark img, html.dark .hqp-mark img { background: #fffaf1; padding: 3px; }
+.hqp-family { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 8px; border-radius: 999px; border: 1px solid var(--hqp-line); text-decoration: none; font: 500 11px/1 var(--hqp-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--hqp-ink-3) !important; white-space: nowrap; transition: background .15s ease, color .15s ease; }
+.hqp-family:hover { background: var(--hqp-t); color: var(--hqp-td) !important; border-color: var(--hqp-t); }
+.hqp-family img { width: 18px; height: 18px; clip-path: circle(42%); }
+.hqp-nav { margin-left: auto; display: flex; gap: 24px; font-size: 15px; }
+.hqp-nav a { text-decoration: none; color: var(--hqp-ink-2); }
+.hqp-nav a:hover { color: var(--hqp-ink); }
+.hqp-questbar .hqp-btn { padding: 10px 18px; font-size: 14px; }
+.hqp-theme { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--hqp-line); background: transparent; color: var(--hqp-ink); cursor: pointer; padding: 0; transition: background .15s ease, transform .15s ease; flex: none; }
+.hqp-theme:hover { background: var(--hqp-paper-2); transform: rotate(-12deg); }
+.hqp-theme svg { width: 19px; height: 19px; }
+.hqp-theme .hqp-sunicon circle { fill: var(--hqp-sun); }
+.hqp-theme .hqp-sunicon path { fill: none; stroke: var(--hqp-sun); stroke-width: 2; stroke-linecap: round; }
+.hqp-theme .hqp-sunicon, .hqp-theme .hqp-moonicon { transform-origin: 12px 12px; transition: opacity .35s ease, transform .5s ease; }
+.hqp-theme .hqp-moonicon { fill: var(--hqp-ink); opacity: 0; transform: rotate(-40deg) scale(.5); }
+:root[data-theme="night"] .hqp-theme .hqp-sunicon, html.dark .hqp-theme .hqp-sunicon { opacity: 0; transform: rotate(90deg) scale(.5); }
+:root[data-theme="night"] .hqp-theme .hqp-moonicon, html.dark .hqp-theme .hqp-moonicon { opacity: 1; transform: none; }
+.hqp-menu { display: none; position: relative; }
+.hqp-menu summary { list-style: none; cursor: pointer; padding: 9px 14px; border-radius: 999px; border: 1px solid var(--hqp-line); font: 600 14px/1 var(--hqp-text); }
+.hqp-menu summary::-webkit-details-marker { display: none; }
+.hqp-menu[open] summary { background: var(--hqp-ink); color: var(--hqp-paper); border-color: var(--hqp-ink); }
+.hqp-menu > div { position: absolute; right: 0; top: calc(100% + 10px); display: grid; min-width: 210px; padding: 8px; border-radius: 18px; background: var(--hqp-card); border: 1px solid var(--hqp-line); box-shadow: 0 24px 50px -24px rgba(60, 30, 10, .55); }
+.hqp-menu > div a { padding: 12px 14px; border-radius: 12px; text-decoration: none; font-size: 17px; }
+.hqp-menu > div a:hover { background: var(--hqp-paper-2); }
+
+/* ---------- Hero: the product as a stop on the path ---------- */
+.hqp-hero { position: relative; overflow: hidden; background: var(--hqp-paper); }
+.hqp-hero-grid { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: clamp(28px, 4vw, 64px); align-items: center; max-width: var(--hqp-max); margin: 0 auto; padding: clamp(40px, 7vh, 88px) var(--hqp-gutter) clamp(120px, 14vw, 190px); }
+.hqp-hero-copy { position: relative; z-index: 3; }
+.hqp-hero-art { position: relative; z-index: 2; }
+.hqp-hero-sun { position: absolute; z-index: 0; width: 74%; aspect-ratio: 1; right: -8%; top: -14%; border-radius: 50%; background: var(--hqp-sun-core); box-shadow: 0 0 0 clamp(26px, 4vw, 60px) color-mix(in srgb, var(--hqp-sun-halo) 45%, transparent); animation: hqp-rise 9s ease-out both; transition: background .6s ease; }
+:root[data-theme="night"] .hqp-hero-sun, html.dark .hqp-hero-sun { box-shadow: 0 0 0 clamp(26px, 4vw, 60px) color-mix(in srgb, var(--hqp-sun-halo) 10%, transparent); }
+@keyframes hqp-rise { from { transform: translateY(60px); } to { transform: translateY(0); } }
+.hqp-screen { position: relative; z-index: 1; border-radius: 18px; overflow: hidden; background: var(--hqp-card); border: 1px solid var(--hqp-line); box-shadow: 0 40px 80px -40px rgba(60, 30, 10, .6); }
+.hqp-screen .hqp-chrome { display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--hqp-line); background: var(--hqp-paper-2); }
+.hqp-screen .hqp-chrome i { width: 9px; height: 9px; border-radius: 50%; background: var(--hqp-line); }
+.hqp-screen img, .hqp-screen video { display: block; width: 100%; height: auto; }
+.hqp-phone { position: relative; z-index: 1; width: min(300px, 70%); margin: 0 auto; border-radius: 38px; padding: 10px; background: #1c130e; box-shadow: 0 40px 80px -40px rgba(60, 30, 10, .7); }
+.hqp-phone img, .hqp-phone video { display: block; width: 100%; border-radius: 30px; }
+.hqp-hills { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; width: 100%; height: clamp(150px, 17vw, 240px); pointer-events: none; }
+.hqp-hills path { transition: fill .6s ease; }
+.hqp-hills .hqp-road { fill: none; stroke: var(--hqp-road); stroke-linecap: round; stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: hqp-draw 2.4s .3s ease-out forwards; }
+@keyframes hqp-draw { to { stroke-dashoffset: 0; } }
+
+/* ---------- Building blocks ---------- */
+/* Stones: three to five numbered steps on a dashed trail (how it works). */
+.hqp-stones { position: relative; display: grid; grid-template-columns: repeat(var(--hqp-n, 3), minmax(0, 1fr)); gap: 40px; }
+.hqp-stones::before { content: ""; position: absolute; left: 0; right: 0; top: 27px; height: 2px; background-image: linear-gradient(90deg, var(--hqp-ink-3) 0 40%, transparent 40% 100%); background-size: 12px 2px; opacity: .55; }
+.hqp-stone { position: relative; }
+.hqp-stone > b { position: relative; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--hqp-paper); border: 2px solid var(--hqp-ink); font: 400 26px/1 var(--hqp-display); margin-bottom: 20px; }
+.hqp-stone:nth-child(2) > b { border-color: var(--hqp-ember); color: var(--hqp-ember); }
+.hqp-stone:last-child > b { background: var(--hqp-ink); color: var(--hqp-paper); }
+.hqp-stone h3 { font: 400 28px/1.05 var(--hqp-display); letter-spacing: -0.02em; margin: 0 0 8px; }
+.hqp-stone p { margin: 0; color: var(--hqp-ink-2); max-width: 32ch; }
+.hqp-tint .hqp-stone:not(:last-child) > b { background: var(--hqp-paper-2); }
+
+/* Cards: picture first, then one line. Territory colour on top. */
+.hqp-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.hqp-card { display: block; position: relative; text-decoration: none; background: var(--hqp-card); border: 1px solid var(--hqp-line); border-top: 4px solid var(--hqp-t); border-radius: 18px; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease; }
+a.hqp-card:hover, .hqp-card.hqp-lift:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -22px rgba(60, 30, 10, .45); }
+.hqp-card .hqp-shot { aspect-ratio: 16/10; overflow: hidden; border-bottom: 1px solid var(--hqp-line); background: var(--hqp-paper-2); }
+.hqp-card .hqp-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.hqp-card .hqp-body { padding: 18px 20px 20px; }
+.hqp-card h3 { font: 400 24px/1.1 var(--hqp-display); letter-spacing: -0.015em; margin: 0 0 6px; }
+.hqp-card p { margin: 0; color: var(--hqp-ink-2); font-size: 15.5px; }
+.hqp-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.hqp-chips span, .hqp-chip { padding: 6px 12px; border-radius: 999px; background: color-mix(in srgb, var(--hqp-t) 22%, transparent); color: var(--hqp-td); font: 500 13px var(--hqp-text); }
+.hqp-quote { font: italic 300 clamp(26px, 3vw, 40px)/1.15 var(--hqp-display); letter-spacing: -0.015em; color: var(--hqp-ink); max-width: 28ch; margin: 0; }
+.hqp-stat b { display: block; font: 300 clamp(56px, 6vw, 96px)/.9 var(--hqp-display); letter-spacing: -0.04em; color: var(--hqp-td); }
+.hqp-stat span { display: block; margin-top: 10px; font: 600 16px var(--hqp-text); }
+
+/* Sunset: closes the page and leads into the footer. */
+.hqp-sunset { display: block; width: 100%; height: clamp(110px, 15vw, 220px); margin-bottom: -1px; }
+.hqp-sunset .hqp-s { fill: var(--hqp-sun-core); }
+.hqp-sunset .hqp-h1 { fill: var(--hqp-t); } .hqp-sunset .hqp-h2 { fill: color-mix(in srgb, var(--hqp-t) 55%, var(--hqp-ember)); } .hqp-sunset .hqp-h3 { fill: var(--hqp-night); }
+:root[data-theme="night"] .hqp-sunset .hqp-h3, html.dark .hqp-sunset .hqp-h3 { fill: #140d09; }
+
+/* ---------- The family footer ---------- */
+.hqp-foot { background: var(--hqp-night); color: #e9dccb; padding: 56px var(--hqp-gutter) 40px; font-family: var(--hqp-text); }
+:root[data-theme="night"] .hqp-foot, html.dark .hqp-foot { background: #140d09; }
+.hqp-foot a { color: #e9dccb; text-decoration: none; }
+.hqp-foot a:hover { color: var(--hqp-sun); }
+.hqp-foot-in { max-width: var(--hqp-max); margin: 0 auto; }
+.hqp-foot-top { display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; align-items: flex-end; }
+.hqp-foot .hqp-eyebrow { color: #9d8a76; }
+.hqp-foot .hqp-display { font-size: clamp(30px, 3.6vw, 48px); color: #f6efe3; }
+.hqp-foot-logos { display: flex; flex-wrap: wrap; gap: 10px; max-width: 560px; }
+.hqp-foot-logos a { display: block; transition: transform .15s ease; }
+.hqp-foot-logos a:hover { transform: translateY(-3px); }
+.hqp-foot-logos img { width: 30px; height: 30px; border-radius: 8px; background: #fff; display: block; }
+.hqp-foot-logos a.hqp-here img { outline: 2px solid var(--hqp-sun); outline-offset: 2px; }
+.hqp-foot-cols { display: grid; grid-template-columns: 1.3fr repeat(3, 1fr); gap: 32px; margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--hqp-night-line); }
+.hqp-foot-cols b { display: block; margin-bottom: 12px; font: 500 12px var(--hqp-mono); letter-spacing: .14em; text-transform: uppercase; color: #9d8a76; }
+.hqp-foot-cols a { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 15px; }
+.hqp-foot-cols p { margin: 0; color: #bfae99; font-size: 15px; max-width: 34ch; }
+.hqp-foot small { display: block; margin-top: 36px; color: #9d8a76; font: 12px/1.4 var(--hqp-mono); letter-spacing: .08em; }
+
+@media (max-width: 860px) {
+  .hqp-hero-grid { grid-template-columns: 1fr; padding-bottom: 150px; }
+  .hqp-hero-sun { width: 90%; right: -18%; top: -6%; }
+  .hqp-nav, .hqp-family { display: none; }
+  .hqp-menu { display: block; }
+  .hqp-questbar { gap: 10px; }
+  .hqp-questbar .hqp-theme { margin-left: auto; }
+  .hqp-stones { grid-template-columns: 1fr; gap: 26px; }
+  .hqp-stones::before { display: none; }
+  .hqp-stone { display: grid; grid-template-columns: 56px 1fr; gap: 0 18px; }
+  .hqp-stone > b { grid-row: span 2; margin: 0; }
+  .hqp-foot-cols { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
+  .hqp-foot-cols > div:first-child { grid-column: span 2; }
+}
+@media (max-width: 760px) { .hqp-page { font-size: 16px; } .hqp-lede { font-size: 17px; } }
+@media (max-width: 430px) { .hqp-questbar .hqp-btn-cta { display: none; } }
+@media (prefers-reduced-motion: reduce) { .hqp-hero-sun, .hqp-hills .hqp-road { animation: none; stroke-dashoffset: 0; } }
+
+/* ---------- This site's own colours (the one block that differs per site) ----------
+   Main: buttons and the italic word. Soft: hills, chips and card tops. Deep: text on soft.
+   Night (optional): main after dark. The sun, the Human Quest chip and the footer stay family orange. */
+:root { --hqp-brand: #367661; --hqp-brand-soft: #a5c9ab; --hqp-brand-deep: #1c5448; --hqp-brand-night: #439379; }
